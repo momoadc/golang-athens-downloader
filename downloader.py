@@ -49,6 +49,7 @@ def main():
     now = datetime.datetime.now()
     timestamp = now.strftime("%Y-%m-%d-%H-%M-%S")
     athenesStartUpScript = f"""docker network create godownloadnet
+    mkdir -p {os.getenv('PWD')}/downloaded-packages
     mkdir -p {os.getenv('PWD')}/downloaded-packages/{timestamp}
     docker run -d --net godownloadnet --name athens --rm -p 3000:3000 -v {os.getenv('PWD')}/downloaded-packages/{timestamp}:/var/lib/athens -e ATHENS_DISK_STORAGE_ROOT=/var/lib/athens -e ATHENS_STORAGE_TYPE=disk gomods/athens"""
     # until curl -s -f -o /dev/null "http://127.0.0.1:3000"; do; sleep 1; done 
